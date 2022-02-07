@@ -1,0 +1,14 @@
+version: '3'
+services:
+  www:
+    image: "dev.dreams.es:4567/dreams/docker-php:7.3-mcrypt"
+    container_name: laravel-hexagonal-ddd
+    volumes:
+      - .:/var/www/html
+    hostname: localhost
+    environment:
+      - VIRTUAL_HOST=localhost
+      - user=jorge
+    restart: "no"
+    ports:
+      - "80:80"
