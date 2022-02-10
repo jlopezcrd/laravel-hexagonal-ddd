@@ -39,21 +39,21 @@ class CreateProductsTable extends Migration
         $products = [
             new Product(
                 Str::uuid()->toString(),
-                Str::slug('Mural 1'),
-                'Mural 1',
-                '/gallery/img/murales/1.jpg',
-                'MURALES',
-                1,
+                Str::slug('BITCOINS'),
+                'Bitcoins',
+                '/gallery/img/bitcoin.jpg',
+                'CRYPTO_CURRENCY',
+                0,
                 1,
                 1,
                 500.0
             ),
             new Product(
                 Str::uuid()->toString(),
-                Str::slug('Cuadro 1'),
-                'Cuadro 1',
-                '/gallery/img/cuadros/1.jpg',
-                'CUADROS',
+                Str::slug('EUROS'),
+                'Euros',
+                '/gallery/img/euro.jpg',
+                'FIAT_CURRENCY',
                 0,
                 1,
                 1,
@@ -61,14 +61,36 @@ class CreateProductsTable extends Migration
             ),
             new Product(
                 Str::uuid()->toString(),
-                Str::slug('Lienzo 1'),
-                'Lienzo 1',
-                '/gallery/img/lienzos/1.jpg',
-                'LIENZOS',
+                Str::slug('DOLLARS'),
+                'Dollars',
+                '/gallery/img/dollar.jpg',
+                'FIAT_CURRENCY',
+                0,
+                0,
+                0,
+                800.00
+            ),
+            new Product(
+                Str::uuid()->toString(),
+                Str::slug('MONKEY'),
+                'Bored Ape Yatch Club',
+                '/gallery/img/monkey.jpg',
+                'NFT_CURRENCY',
                 1,
                 1,
-                1,
+                0,
                 300.0
+            ),
+            new Product(
+                Str::uuid()->toString(),
+                Str::slug('JUVENTUS'),
+                'Juventus FAN Token',
+                '/gallery/img/juventus.jpg',
+                'ETHER_TOKEN',
+                1,
+                1,
+                0,
+                100.0
             ),
         ];
 

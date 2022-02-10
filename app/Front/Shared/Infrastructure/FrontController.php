@@ -10,7 +10,6 @@ use Developez\Front\Cart\Application\CartSessionFinder;
 use Developez\Front\Cart\Application\CartUpdater;
 use Developez\Front\HomePage\Application\HomePageFinder;
 use Developez\Front\Product\Application\ProductFinder;
-use Developez\Front\Product\Application\ProductGalleryFinder;
 use Developez\Front\Product\Application\ProductGallerySearcher;
 use Developez\Front\Product\Application\ProductSearcher;
 use Developez\Front\Purchase\Application\PurchaseCreator;
@@ -23,10 +22,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class FrontController
 {
-    public function index(Request $request, HomePageFinder $finder, ProductGalleryFinder $galleryFinder): View
+    public function index(Request $request, HomePageFinder $finder, ProductSearcher $searcher): View
     {
+        //ProductGalleryFinder $galleryFinder
         $page = $finder();
-        $gallery = $galleryFinder();
+        $gallery = $searcher();
 
         //TODO => dd($page, $gallery);
 
@@ -52,7 +52,7 @@ final class FrontController
 
     public function gallery_category(Request $request, ProductGallerySearcher $searcher, string $category): View
     {
-        $products = $searcher(['category' => $category], []);
+        $products = $searcher(['category' => $category, 'on_gallery' => true], []);
         dd($products);
     }
 
@@ -80,14 +80,20 @@ final class FrontController
             $product = $finder($request->input('productId', ''));
             $cart = $updater($product, (int)$request->input('quantity', 0));
 
-            return response()->json([
-                                        'msg' => 'ok',
-                                        'cart' => $cart->toArray()
-                                    ], Response::HTTP_OK);
+            return response()->json(
+                [
+                    'msg' => 'ok',
+                    'cart' => $cart->toArray()
+                ],
+                Response::HTTP_OK
+            );
         } catch (DomainException $exception) {
-            return response()->json([
-                                        'msg' => $exception->getMessage()
-                                    ], Response::HTTP_NOT_FOUND);
+            return response()->json(
+                [
+                    'msg' => $exception->getMessage()
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
         }
     }
 
@@ -96,23 +102,35 @@ final class FrontController
         CartSessionFinder $cartFinder,
         PurchaseCreator $creator
     ): JsonResponse {
-        $purchase = $creator($cartFinder());
+        try {
+            $purchase = $creator($cartFinder());
 
-        //$request->session()->flush(); //TODO REMOVE
-
-        return response()->json([
-                                    'msg' => 'ok',
-                                    'purchase' => $purchase->orderId()->value()
-                                ], Response::HTTP_OK);
+            return response()->json(
+                [
+                    'msg' => 'ok',
+                    'purchase' => $purchase->orderId()->value()
+                ],
+                Response::HTTP_OK
+            );
+        } catch (DomainException $exception) {
+            return response()->json(
+                [
+                    'msg' => $exception->getMessage()
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
     }
 
     public function getAllPurchases(Request $request, PurchaseSearcher $searcher): JsonResponse
     {
         $purchases = $searcher();
 
-        return response()->json([
-                                    'msg' => 'ok',
-                                    'purchases' => $purchases->toArray()
-                                ], Response::HTTP_OK);
+        return response()->json(
+            [
+                'msg' => 'ok',
+                'purchases' => $purchases->toArray()
+            ], Response::HTTP_OK
+        );
     }
 }

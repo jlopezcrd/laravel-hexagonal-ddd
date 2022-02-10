@@ -1,3 +1,4 @@
+<h1 style="text-align: center;">-Welcome to SW Exchange System -</h1>
 
 {!! $page->getHead() !!}
 
@@ -8,18 +9,20 @@
         <ul>
             <li>
                 <a href="{{ $product->slug() }}">
-                    {{ $product->uuid() }}</a>
-                {{ $product->name() }}
-                <a href="{{ route('updateCart', ['productId' => $product->uuid()]) }}">ADD</a>
+                    {{ $product->name() }}</a>
+                <span style="margin-left: 10px; margin-right: 10px">---></span>
+                <a href="{{ route('updateCart', ['productId' => $product->uuid(), 'quantity' => 0]) }}">ADD TO CART</a>
             </li>
         </ul>
     @endforeach
 @endif
 
-<a href="{{ route('index') }}">HOME PAGE</a>
-<a href="{{ route('about') }}">ABOUT PAGE</a>
-<a href="{{ route('gallery') }}">GALLERY PAGE</a>
+<div style="margin-top: 15%"></div>
 
-<a href="{{ route('cart') }}">CART</a>
-<a href="{{ route('savePurchase') }}">BUY</a>
-<a href="{{ route('getAllPurchases') }}">PURCHASES</a>
+<p><a href="{{ route('index') }}">HOME PAGE</a></p>
+<p><a href="{{ route('about') }}">ABOUT PAGE</a></p>
+<p><a href="{{ route('gallery') }}">GALLERY PAGE</a></p>
+
+<p><a href="{{ route('cart') }}">MY CART</a></p>
+<p><a href="{{ route('savePurchase') }}">BUY</a></p>
+<p><a href="{{ route('getAllPurchases') }}">PURCHASES</a></p>

@@ -7,7 +7,6 @@ namespace Developez\Front\Product\Application;
 use Developez\Front\Product\Domain\ProductRepository;
 use Developez\Shared\Domain\Collection;
 use Developez\Shared\Domain\Query;
-use Developez\Shared\Domain\QueryFinder;
 
 final class ProductSearcher
 {
@@ -18,7 +17,7 @@ final class ProductSearcher
         $this->repository = $repository;
     }
 
-    public function __invoke(array $filter): Collection
+    public function __invoke(array $filter = []): Collection
     {
         if (count($filter) > 0) {
             return $this->repository->search(

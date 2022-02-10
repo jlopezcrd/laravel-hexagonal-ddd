@@ -34,14 +34,14 @@ class CreatePagesTable extends Migration
 
         (resolve(HomePageRepository::class))->createAboutPage(
             new HomePage(HomePage::PAGE, 'Home Page', (object) [
-                'head' => "<h1>Hi Home page!</h1>",
+                'head' => "<h2>Hi Home page!</h2>",
                 'body' => "<p>Home Body</p>",
             ])
         );
 
         $this->repository->createAboutPage(
             new AboutUs(AboutUs::PAGE, 'About Us', (object) [
-                'head' => "<h1>Hi About us!</h1>",
+                'head' => "<h2>Hi About us!</h2>",
                 'body' => "<p>About body</p>",
             ])
         );
