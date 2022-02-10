@@ -19,11 +19,11 @@ final class EloquentProductRepository implements ProductRepository
             ->where('uuid', $uuid)
             ->first();
 
-        if(null === $product) {
+        if (null === $product) {
             return null;
         }
 
-        return Product::fromArray((array) $product);
+        return Product::fromArray((array)$product);
     }
 
     public function findBySlug(string $category, string $slug): ?Product
@@ -33,11 +33,11 @@ final class EloquentProductRepository implements ProductRepository
             ->where('slug', $slug)
             ->first();
 
-        if(null === $product) {
+        if (null === $product) {
             return null;
         }
 
-        return Product::fromArray((array) $product);
+        return Product::fromArray((array)$product);
     }
 
     public function search(Query $query): Collection
@@ -45,30 +45,34 @@ final class EloquentProductRepository implements ProductRepository
         //dd($query);
         $this->model = DB::table('products');
 
-        if($query->hasAnd()) {
+        if ($query->hasAnd()) {
             $this->model = $this->model->where($query->valueAnd());
         }
 
-        if($query->hasOr()) {
-            $this->model = $this->model->where(static function($orm) use ($query) {
+        if ($query->hasOr()) {
+            $this->model = $this->model->where(static function ($orm) use ($query) {
                 return $orm->orWhere($query->valueOr());
             });
         }
 
         //dd($this->model->toSql());
 
-        return new Collection(array_map(static function($item) {
-            return Product::fromArray((array) $item);
-        }, $this->model->get()->toArray()));
+        return new Collection(
+            array_map(static function ($item) {
+                return Product::fromArray((array)$item);
+            }, $this->model->get()->toArray())
+        );
     }
 
     public function findAll(): Collection
     {
         $this->model = DB::table('products');
 
-        return new Collection(array_map(function($item) {
-            return Product::fromArray((array) $item);
-        }, $this->model->get()->toArray()));
+        return new Collection(
+            array_map(function ($item) {
+                return Product::fromArray((array)$item);
+            }, $this->model->get()->toArray())
+        );
     }
 
     public function gallery(): GalleryCollection
@@ -77,8 +81,8 @@ final class EloquentProductRepository implements ProductRepository
             ->where('on_gallery', 1)
             ->get();
 
-        $products = array_map(static function($item) {
-            return Product::fromArray((array) $item);
+        $products = array_map(static function ($item) {
+            return Product::fromArray((array)$item);
         }, $productsDB->toArray());
 
         $categories = $productsDB->unique('category')

@@ -21,7 +21,7 @@ final class ProductFinder
     {
         $product = $this->repository->find($productId);
 
-        if(null === $product) {
+        if (null === $product) {
             throw new ProductNotFoundException();
         }
 
@@ -32,7 +32,7 @@ final class ProductFinder
     {
         $product = $this->repository->findBySlug(strtoupper($category), $slug);
 
-        if(null === $product) {
+        if (null === $product) {
             throw new ProductNotFoundException();
         }
 

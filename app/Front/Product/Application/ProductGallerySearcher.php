@@ -23,7 +23,6 @@ final class ProductGallerySearcher
         return $this->repository->search(
             new Query($filter, $query)
         );
-
         /*if (count($query) > 0) {
             return $this->repository->search(
                 //'on_gallery' => 1

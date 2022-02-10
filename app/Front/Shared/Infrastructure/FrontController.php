@@ -5,10 +5,10 @@ declare(strict_types = 1);
 namespace Developez\Front\Shared\Infrastructure;
 
 use Developez\Front\AboutUs\Application\AboutUsFinder;
-use Developez\Front\HomePage\Application\HomePageFinder;
 use Developez\Front\Cart\Application\CartCreator;
 use Developez\Front\Cart\Application\CartSessionFinder;
 use Developez\Front\Cart\Application\CartUpdater;
+use Developez\Front\HomePage\Application\HomePageFinder;
 use Developez\Front\Product\Application\ProductFinder;
 use Developez\Front\Product\Application\ProductGalleryFinder;
 use Developez\Front\Product\Application\ProductGallerySearcher;
@@ -77,29 +77,32 @@ final class FrontController
     {
         try {
             $product = $finder($request->input('productId', ''));
-            $cart    = $updater($product, (int) $request->input('quantity', 0));
+            $cart = $updater($product, (int)$request->input('quantity', 0));
 
             return response()->json([
-                'msg' => 'ok',
-                'cart' => $cart->toArray()
-            ], Response::HTTP_OK);
+                                        'msg' => 'ok',
+                                        'cart' => $cart->toArray()
+                                    ], Response::HTTP_OK);
         } catch (DomainException $exception) {
             return response()->json([
-                'msg' => $exception->getMessage()
-            ], Response::HTTP_NOT_FOUND);
+                                        'msg' => $exception->getMessage()
+                                    ], Response::HTTP_NOT_FOUND);
         }
     }
 
-    public function savePurchase(Request $request, CartSessionFinder $cartFinder, PurchaseCreator $creator): JsonResponse
-    {
+    public function savePurchase(
+        Request $request,
+        CartSessionFinder $cartFinder,
+        PurchaseCreator $creator
+    ): JsonResponse {
         $purchase = $creator($cartFinder());
 
         //$request->session()->flush(); //TODO REMOVE
 
         return response()->json([
-            'msg'      => 'ok',
-            'purchase' => $purchase->orderId()->value()
-        ], Response::HTTP_OK);
+                                    'msg' => 'ok',
+                                    'purchase' => $purchase->orderId()->value()
+                                ], Response::HTTP_OK);
     }
 
     public function getAllPurchases(Request $request, PurchaseSearcher $searcher): JsonResponse
@@ -107,8 +110,8 @@ final class FrontController
         $purchases = $searcher();
 
         return response()->json([
-            'msg'       => 'ok',
-            'purchases' => $purchases->toArray()
-        ], Response::HTTP_OK);
+                                    'msg' => 'ok',
+                                    'purchases' => $purchases->toArray()
+                                ], Response::HTTP_OK);
     }
 }

@@ -21,7 +21,7 @@ final class HomePageFinder
     {
         $aboutUs = $this->repository->getHomePagePage();
 
-        if(null === $aboutUs) {
+        if (null === $aboutUs) {
             throw new NotFoundException('About Us Page not found!');
         }
 

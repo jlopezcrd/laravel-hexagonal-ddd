@@ -16,7 +16,24 @@ final class Cart implements Serializable
     public function __construct(OrderId $orderId)
     {
         $this->orderId = $orderId;
-        $this->items   = [];
+        $this->items = [];
+    }
+
+    public static function fromJson(string $serialized): Cart
+    {
+        $serialized = json_decode($serialized, true, 512, JSON_THROW_ON_ERROR);
+        return self::fromArray($serialized);
+    }
+
+    public static function fromArray(array $data): Cart
+    {
+        $cart = new self(new OrderId($data['orderId']));
+
+        foreach ($data['items'] as $item) {
+            $cart->add(Product::fromArray($item));
+        }
+
+        return $cart;
     }
 
     public function add(Product $product): void
@@ -38,26 +55,9 @@ final class Cart implements Serializable
     {
         return [
             'orderId' => $this->orderId->value(),
-            'items'   => array_map(static function ($item) {
+            'items' => array_map(static function ($item) {
                 return $item->toArray();
             }, $this->items)
         ];
-    }
-
-    public static function fromJson(string $serialized): Cart
-    {
-        $serialized = json_decode($serialized, true, 512, JSON_THROW_ON_ERROR);
-        return self::fromArray($serialized);
-    }
-
-    public static function fromArray(array $data): Cart
-    {
-        $cart = new self(new OrderId($data['orderId']));
-
-        foreach($data['items'] as $item) {
-            $cart->add(Product::fromArray($item));
-        }
-
-        return $cart;
     }
 }

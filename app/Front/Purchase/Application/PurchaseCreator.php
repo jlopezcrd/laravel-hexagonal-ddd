@@ -17,7 +17,7 @@ final class PurchaseCreator
     public function __construct(PurchaseRepository $repository, CartDestroyer $destroyer)
     {
         $this->repository = $repository;
-        $this->destroyer  = $destroyer;
+        $this->destroyer = $destroyer;
     }
 
     public function __invoke(Cart $cart): Purchase

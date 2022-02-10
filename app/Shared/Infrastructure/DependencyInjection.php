@@ -21,11 +21,11 @@ final class DependencyInjection extends ServiceProvider
 {
     public $bindings = [
         HomePageRepository::class => EloquentHomePageRepository::class,
-        AboutUsRepository::class  => EloquentAboutUsRepository::class,
-        CartRepository::class     => EloquentCartRepository::class,
-        ProductRepository::class  => EloquentProductRepository::class,
+        AboutUsRepository::class => EloquentAboutUsRepository::class,
+        CartRepository::class => EloquentCartRepository::class,
+        ProductRepository::class => EloquentProductRepository::class,
         PurchaseRepository::class => EloquentPurchaseRepository::class,
-        OrderIdGenerator::class   => TimeOrderIdGenerator::class,
+        OrderIdGenerator::class => TimeOrderIdGenerator::class,
         //OrderIdGenerator::class   => UuIdGenerator::class
     ];
 }

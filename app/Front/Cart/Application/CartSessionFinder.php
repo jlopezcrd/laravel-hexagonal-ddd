@@ -15,14 +15,14 @@ final class CartSessionFinder
     public function __construct(CartRepository $repository, CartCreator $creator)
     {
         $this->repository = $repository;
-        $this->creator    = $creator;
+        $this->creator = $creator;
     }
 
     public function __invoke(): Cart
     {
         $cart = $this->repository->getSessionCart();
 
-        if(null === $cart) {
+        if (null === $cart) {
             $cart = $this->creator->__invoke();
         }
 

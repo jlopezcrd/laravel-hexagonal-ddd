@@ -16,9 +16,24 @@ final class AboutUs implements Page
 
     public function __construct(string $type, string $title, object $body)
     {
-        $this->type  = $type;
+        $this->type = $type;
         $this->title = $title;
-        $this->html  = $body;
+        $this->html = $body;
+    }
+
+    public static function fromJson(string $serialized): Page
+    {
+        $serialized = json_decode($serialized, true, 512, JSON_THROW_ON_ERROR);
+        return self::fromArray($serialized);
+    }
+
+    public static function fromArray(array $data): Page
+    {
+        return new self(
+            $data['type'],
+            $data['title'],
+            json_decode($data['body'], false, 512, JSON_THROW_ON_ERROR)
+        );
     }
 
     public function getHead(): string
@@ -39,25 +54,10 @@ final class AboutUs implements Page
     public function toArray(): array
     {
         return [
-            'type'  => $this->type,
+            'type' => $this->type,
             'title' => $this->title,
-            'body'  => json_encode($this->html, JSON_THROW_ON_ERROR)
+            'body' => json_encode($this->html, JSON_THROW_ON_ERROR)
         ];
-    }
-
-    public static function fromJson(string $serialized): Page
-    {
-        $serialized = json_decode($serialized, true, 512, JSON_THROW_ON_ERROR);
-        return self::fromArray($serialized);
-    }
-
-    public static function fromArray(array $data): Page
-    {
-        return new self(
-            $data['type'],
-            $data['title'],
-            json_decode($data['body'], false, 512, JSON_THROW_ON_ERROR)
-        );
     }
 
     public function isPage(string $page): bool

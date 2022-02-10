@@ -20,7 +20,7 @@ final class EloquentHomePageRepository implements HomePageRepository
             return null;
         }
 
-        return HomePage::fromArray((array) $page);
+        return HomePage::fromArray((array)$page);
     }
 
     public function createAboutPage(HomePage $aboutUs): HomePage

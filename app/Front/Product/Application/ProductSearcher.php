@@ -20,7 +20,7 @@ final class ProductSearcher
 
     public function __invoke(array $filter): Collection
     {
-        if(count($filter) > 0) {
+        if (count($filter) > 0) {
             return $this->repository->search(
                 new Query($filter)
             );

@@ -20,7 +20,7 @@ final class EloquentAboutUsRepository implements AboutUsRepository
             return null;
         }
 
-        return AboutUs::fromArray((array) $page);
+        return AboutUs::fromArray((array)$page);
     }
 
     public function createAboutPage(AboutUs $aboutUs): AboutUs

@@ -29,17 +29,16 @@ final class Product implements Serializable
         string $category,
         bool $on_gallery = true,
         bool $on_shop = true
-    )
-    {
-        $this->uuid        = $uuid;
-        $this->slug        = $slug;
-        $this->name        = strtoupper($name);
-        $this->size        = $size;
+    ) {
+        $this->uuid = $uuid;
+        $this->slug = $slug;
+        $this->name = strtoupper($name);
+        $this->size = $size;
         $this->description = $description;
-        $this->image       = $image;
-        $this->category    = strtoupper($category);
-        $this->on_gallery  = $on_gallery;
-        $this->on_shop     = $on_shop;
+        $this->image = $image;
+        $this->category = strtoupper($category);
+        $this->on_gallery = $on_gallery;
+        $this->on_shop = $on_shop;
     }
 
     public static function fake(string $uuid = null): Product
@@ -61,6 +60,27 @@ final class Product implements Serializable
         );
     }
 
+    public static function fromJson(string $serialized): Product
+    {
+        $serialized = json_decode($serialized, true, 512, JSON_THROW_ON_ERROR);
+        return self::fromArray($serialized);
+    }
+
+    public static function fromArray(array $data): Product
+    {
+        return new self(
+            $data['uuid'],
+            $data['slug'],
+            $data['name'],
+            $data['size'],
+            $data['description'],
+            $data['image'],
+            $data['category'],
+            (bool)$data['on_gallery'],
+            (bool)$data['on_shop']
+        );
+    }
+
     public function id(): string
     {
         return $this->uuid;
@@ -74,6 +94,11 @@ final class Product implements Serializable
     public function slug(): string
     {
         return route('gallery_detail', [$this->category(), $this->slug]);
+    }
+
+    public function category(): string
+    {
+        return $this->category;
     }
 
     public function name(): string
@@ -101,11 +126,6 @@ final class Product implements Serializable
         return str_replace('/img/', '/thumbs/', $this->image);
     }
 
-    public function category(): string
-    {
-        return $this->category;
-    }
-
     public function on_gallery(): bool
     {
         return $this->on_gallery;
@@ -129,26 +149,15 @@ final class Product implements Serializable
     public function toArray(): array
     {
         return [
-            'uuid'        => $this->uuid,
-            'slug'        => $this->slug,
-            'name'        => $this->name,
-            'size'        => $this->size,
+            'uuid' => $this->uuid,
+            'slug' => $this->slug,
+            'name' => $this->name,
+            'size' => $this->size,
             'description' => $this->description,
-            'image'       => $this->image,
-            'category'    => $this->category,
-            'on_gallery'  => $this->on_gallery,
-            'on_shop'     => $this->on_shop,
+            'image' => $this->image,
+            'category' => $this->category,
+            'on_gallery' => $this->on_gallery,
+            'on_shop' => $this->on_shop,
         ];
-    }
-
-    public static function fromJson(string $serialized): Product
-    {
-        $serialized = json_decode($serialized, true, 512, JSON_THROW_ON_ERROR);
-        return self::fromArray($serialized);
-    }
-
-    public static function fromArray(array $data): Product
-    {
-        return new self($data['uuid'], $data['slug'], $data['name'], $data['size'], $data['description'], $data['image'], $data['category'], (bool) $data['on_gallery'], (bool) $data['on_shop']);
     }
 }

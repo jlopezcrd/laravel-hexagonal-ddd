@@ -16,33 +16,7 @@ final class Purchase implements Serializable
     public function __construct(OrderId $orderId, Cart $cart)
     {
         $this->orderId = $orderId;
-        $this->cart    = $cart;
-    }
-
-    public function orderId(): OrderId
-    {
-        return $this->orderId;
-    }
-
-    public function toJson(): string
-    {
-        // TODO: Implement toJson() method.
-    }
-
-    public function toDB(): array
-    {
-        return [
-            'orderId' => $this->orderId->value(),
-            'cart'    => json_encode($this->cart->toArray(), JSON_THROW_ON_ERROR)
-        ];
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'orderId' => $this->orderId->value(),
-            'cart'    => $this->cart->toArray()
-        ];
+        $this->cart = $cart;
     }
 
     public static function fromCart(Cart $cart): Purchase
@@ -59,5 +33,31 @@ final class Purchase implements Serializable
     {
         $cart = Cart::fromJson($data['cart']);
         return new self($cart->orderId(), $cart);
+    }
+
+    public function orderId(): OrderId
+    {
+        return $this->orderId;
+    }
+
+    public function toJson(): string
+    {
+        // TODO: Implement toJson() method.
+    }
+
+    public function toDB(): array
+    {
+        return [
+            'orderId' => $this->orderId->value(),
+            'cart' => json_encode($this->cart->toArray(), JSON_THROW_ON_ERROR)
+        ];
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'orderId' => $this->orderId->value(),
+            'cart' => $this->cart->toArray()
+        ];
     }
 }

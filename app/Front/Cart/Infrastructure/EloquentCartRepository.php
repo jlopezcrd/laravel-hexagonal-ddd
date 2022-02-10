@@ -35,7 +35,7 @@ class EloquentCartRepository implements CartRepository
 
     public function saveCart(Cart $cart): Cart
     {
-        $cartDb          = $cart->toArray();
+        $cartDb = $cart->toArray();
         $cartDb['items'] = json_encode($cartDb['items'], JSON_THROW_ON_ERROR);
 
         DB::table('purchases')->insert($cartDb);

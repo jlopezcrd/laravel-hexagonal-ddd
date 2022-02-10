@@ -14,6 +14,6 @@ final class TimeOrderIdGenerator implements OrderIdGenerator
 
     public function generate(): string
     {
-        return (string) time();
+        return (string)time();
     }
 }

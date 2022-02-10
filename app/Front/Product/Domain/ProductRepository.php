@@ -10,9 +10,14 @@ use Developez\Shared\Domain\Query;
 interface ProductRepository
 {
     public function find(string $uuid): ?Product;
+
     public function findBySlug(string $category, string $slug): ?Product;
+
     public function search(Query $query): Collection;
+
     public function findAll(): Collection;
+
     public function gallery(): GalleryCollection;
+
     public function saveProduct(Product $product): Product;
 }

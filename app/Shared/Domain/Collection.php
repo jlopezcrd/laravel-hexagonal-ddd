@@ -20,7 +20,7 @@ final class Collection
 
     public function toArray(): array
     {
-        return array_map(static function($item) {
+        return array_map(static function ($item) {
             return $item->toArray();
         }, $this->items);
     }

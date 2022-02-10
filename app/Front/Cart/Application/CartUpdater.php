@@ -17,7 +17,7 @@ final class CartUpdater
     public function __construct(CartRepository $repository, CartSessionFinder $finder)
     {
         $this->repository = $repository;
-        $this->finder     = $finder;
+        $this->finder = $finder;
     }
 
     public function __invoke(Product $product, int $quantity): Cart

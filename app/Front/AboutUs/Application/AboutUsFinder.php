@@ -21,7 +21,7 @@ final class AboutUsFinder
     {
         $aboutUs = $this->repository->getAboutUsPage();
 
-        if(null === $aboutUs) {
+        if (null === $aboutUs) {
             throw new NotFoundException('About Us Page not found!');
         }
 

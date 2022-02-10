@@ -12,7 +12,7 @@ final class Query
     public function __construct(array $filterAnd = [], array $filterOr = [])
     {
         $this->and = $filterAnd;
-        $this->or  = $filterOr;
+        $this->or = $filterOr;
     }
 
     public function hasAnd()
@@ -41,12 +41,12 @@ final class Query
     {
         $query = [];
 
-        foreach($this->or as $key => $value) {
+        foreach ($this->or as $key => $value) {
             $value = ltrim($value, '[');
             $value = rtrim($value, ']');
             $value = explode(",", $value);
 
-            foreach($value as $explode) {
+            foreach ($value as $explode) {
                 $query[] = [$key, 'LIKE', $explode, 'or'];
             }
         }
