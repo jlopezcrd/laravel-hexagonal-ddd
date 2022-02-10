@@ -9,7 +9,7 @@ use Developez\Shared\Domain\Collection;
 use Developez\Shared\Domain\Query;
 use Developez\Shared\Domain\QueryFinder;
 
-class ProductGallerySearcher
+final class ProductGallerySearcher
 {
     private $repository;
 

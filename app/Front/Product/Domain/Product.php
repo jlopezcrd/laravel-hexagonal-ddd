@@ -7,17 +7,17 @@ namespace Developez\Front\Product\Domain;
 use Developez\Shared\Domain\Serializable;
 use Illuminate\Support\Str;
 
-class Product implements Serializable
+final class Product implements Serializable
 {
-    private $uuid;
-    private $slug;
-    private $name;
-    private $size;
-    private $description;
-    private $image;
-    private $category;
-    private $on_gallery;
-    private $on_shop;
+    protected $uuid;
+    protected $slug;
+    protected $name;
+    protected $size;
+    protected $description;
+    protected $image;
+    protected $category;
+    protected $on_gallery;
+    protected $on_shop;
 
     public function __construct(
         string $uuid,

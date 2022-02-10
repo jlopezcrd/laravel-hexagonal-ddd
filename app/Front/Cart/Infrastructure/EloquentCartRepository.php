@@ -42,4 +42,10 @@ class EloquentCartRepository implements CartRepository
 
         return $cart;
     }
+
+    public function deleteCart(Cart $cart): bool
+    {
+        Session::forget('cart');
+        return true;
+    }
 }

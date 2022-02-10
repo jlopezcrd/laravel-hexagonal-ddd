@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Developez\Front\Purchase\Domain;
@@ -7,10 +8,10 @@ use Developez\Front\Cart\Domain\Cart;
 use Developez\Shared\Domain\OrderId;
 use Developez\Shared\Domain\Serializable;
 
-class Purchase implements Serializable
+final class Purchase implements Serializable
 {
-    private $orderId;
-    private $cart;
+    protected $orderId;
+    protected $cart;
 
     public function __construct(OrderId $orderId, Cart $cart)
     {

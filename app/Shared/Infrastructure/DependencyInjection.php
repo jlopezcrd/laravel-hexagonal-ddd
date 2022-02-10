@@ -17,7 +17,7 @@ use Developez\Front\Purchase\Infrastructure\EloquentPurchaseRepository;
 use Developez\Shared\Domain\OrderIdGenerator;
 use Illuminate\Support\ServiceProvider;
 
-class DependencyInjection extends ServiceProvider
+final class DependencyInjection extends ServiceProvider
 {
     public $bindings = [
         HomePageRepository::class => EloquentHomePageRepository::class,

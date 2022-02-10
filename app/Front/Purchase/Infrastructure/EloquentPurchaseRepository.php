@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Developez\Front\Purchase\Infrastructure;
@@ -9,7 +10,7 @@ use Developez\Front\Purchase\Domain\PurchaseRepository;
 use Developez\Shared\Domain\Collection;
 use Illuminate\Support\Facades\DB;
 
-class EloquentPurchaseRepository implements PurchaseRepository
+final class EloquentPurchaseRepository implements PurchaseRepository
 {
     public function savePurchase(Purchase $purchase): void
     {

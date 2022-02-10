@@ -1,19 +1,23 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Developez\Front\Purchase\Application;
 
+use Developez\Front\Cart\Application\CartDestroyer;
 use Developez\Front\Cart\Domain\Cart;
 use Developez\Front\Purchase\Domain\Purchase;
 use Developez\Front\Purchase\Domain\PurchaseRepository;
 
-class PurchaseCreator
+final class PurchaseCreator
 {
     private $repository;
+    private $destroyer;
 
-    public function __construct(PurchaseRepository $repository)
+    public function __construct(PurchaseRepository $repository, CartDestroyer $destroyer)
     {
         $this->repository = $repository;
+        $this->destroyer  = $destroyer;
     }
 
     public function __invoke(Cart $cart): Purchase
@@ -21,6 +25,7 @@ class PurchaseCreator
         $purchase = Purchase::fromCart($cart);
 
         $this->repository->savePurchase($purchase);
+        $this->destroyer->__invoke($cart);
 
         return $purchase;
     }

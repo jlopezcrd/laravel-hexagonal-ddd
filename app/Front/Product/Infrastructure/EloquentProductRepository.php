@@ -11,7 +11,7 @@ use Developez\Shared\Domain\Collection;
 use Developez\Shared\Domain\Query;
 use Illuminate\Support\Facades\DB;
 
-class EloquentProductRepository implements ProductRepository
+final class EloquentProductRepository implements ProductRepository
 {
     public function find(string $uuid): ?Product
     {

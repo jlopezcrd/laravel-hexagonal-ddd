@@ -8,7 +8,7 @@ use Developez\Front\Product\Domain\Product;
 use Developez\Shared\Domain\OrderId;
 use Developez\Shared\Domain\Serializable;
 
-class Cart implements Serializable
+final class Cart implements Serializable
 {
     private $orderId;
     private $items;

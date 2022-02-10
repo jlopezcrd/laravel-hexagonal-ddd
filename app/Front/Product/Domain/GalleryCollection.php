@@ -6,8 +6,8 @@ namespace Developez\Front\Product\Domain;
 
 final class GalleryCollection
 {
-    private $items;
-    private $categories;
+    protected $items;
+    protected $categories;
 
     public function __construct(array $items, array $categories)
     {

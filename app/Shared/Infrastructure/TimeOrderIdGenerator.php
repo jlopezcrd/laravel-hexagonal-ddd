@@ -6,7 +6,7 @@ namespace Developez\Shared\Infrastructure;
 
 use Developez\Shared\Domain\OrderIdGenerator;
 
-class TimeOrderIdGenerator implements OrderIdGenerator
+final class TimeOrderIdGenerator implements OrderIdGenerator
 {
     public function __construct()
     {

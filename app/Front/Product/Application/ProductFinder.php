@@ -8,7 +8,7 @@ use Developez\Front\Product\Domain\Product;
 use Developez\Front\Product\Domain\ProductNotFoundException;
 use Developez\Front\Product\Domain\ProductRepository;
 
-class ProductFinder
+final class ProductFinder
 {
     private $repository;
 

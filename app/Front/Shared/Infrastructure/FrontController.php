@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Developez\Front\Shared\Infrastructure;
@@ -12,14 +13,15 @@ use Developez\Front\Product\Application\ProductFinder;
 use Developez\Front\Product\Application\ProductGalleryFinder;
 use Developez\Front\Product\Application\ProductGallerySearcher;
 use Developez\Front\Product\Application\ProductSearcher;
-use Developez\Front\Product\Domain\ProductNotFoundException;
 use Developez\Front\Purchase\Application\PurchaseCreator;
 use Developez\Front\Purchase\Application\PurchaseSearcher;
+use DomainException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class FrontController
+final class FrontController
 {
     public function index(Request $request, HomePageFinder $finder, ProductGalleryFinder $galleryFinder): View
     {
@@ -74,23 +76,17 @@ class FrontController
     public function updateCart(Request $request, ProductFinder $finder, CartUpdater $updater): JsonResponse
     {
         try {
-            if(!$request->has('productId')) {
-                return response()->json([
-                    'msg' => 'Validation error'
-                ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
-            $product = $finder($request->input('productId'));
-            $cart    = $updater($product, 1);
+            $product = $finder($request->input('productId', ''));
+            $cart    = $updater($product, (int) $request->input('quantity', 0));
 
             return response()->json([
                 'msg' => 'ok',
                 'cart' => $cart->toArray()
-            ], JsonResponse::HTTP_OK);
-        } catch (ProductNotFoundException $exception) {
+            ], Response::HTTP_OK);
+        } catch (DomainException $exception) {
             return response()->json([
                 'msg' => $exception->getMessage()
-            ], JsonResponse::HTTP_NOT_FOUND);
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 
@@ -98,20 +94,21 @@ class FrontController
     {
         $purchase = $creator($cartFinder());
 
-        $request->session()->flush();
+        //$request->session()->flush(); //TODO REMOVE
 
         return response()->json([
             'msg'      => 'ok',
             'purchase' => $purchase->orderId()->value()
-        ], JsonResponse::HTTP_OK);
+        ], Response::HTTP_OK);
     }
 
     public function getAllPurchases(Request $request, PurchaseSearcher $searcher): JsonResponse
     {
         $purchases = $searcher();
+
         return response()->json([
             'msg'       => 'ok',
             'purchases' => $purchases->toArray()
-        ], JsonResponse::HTTP_OK);
+        ], Response::HTTP_OK);
     }
 }

@@ -12,4 +12,5 @@ interface CartRepository
     public function getSessionCart(): ?Cart;
     public function updateCart(Cart $cart): Cart;
     public function saveCart(Cart $cart): Cart;
+    public function deleteCart(Cart $cart): bool;
 }

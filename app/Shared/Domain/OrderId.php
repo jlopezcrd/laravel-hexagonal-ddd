@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Developez\Shared\Domain;
 
-class OrderId
+final class OrderId
 {
     private $value;
 

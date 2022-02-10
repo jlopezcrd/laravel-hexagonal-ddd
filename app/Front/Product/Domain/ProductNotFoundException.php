@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Developez\Front\Product\Domain;
 
-use Exception;
+use DomainException;
 use Throwable;
 
-class ProductNotFoundException extends Exception
+final class ProductNotFoundException extends DomainException
 {
     public function __construct($message = "Product Not Found", $code = 0, Throwable $previous = null)
     {

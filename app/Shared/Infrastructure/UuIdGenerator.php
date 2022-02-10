@@ -7,7 +7,7 @@ namespace Developez\Shared\Infrastructure;
 use Developez\Shared\Domain\OrderIdGenerator;
 use Illuminate\Support\Str;
 
-class UuIdGenerator implements OrderIdGenerator
+final class UuIdGenerator implements OrderIdGenerator
 {
     public function __construct()
     {

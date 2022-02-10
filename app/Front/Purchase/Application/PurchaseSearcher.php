@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Developez\Front\Purchase\Application;
@@ -6,7 +7,7 @@ namespace Developez\Front\Purchase\Application;
 use Developez\Front\Purchase\Domain\PurchaseRepository;
 use Developez\Shared\Domain\Collection;
 
-class PurchaseSearcher
+final class PurchaseSearcher
 {
     private $repository;
 

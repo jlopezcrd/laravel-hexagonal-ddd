@@ -7,7 +7,7 @@ namespace Developez\Front\Cart\Application;
 use Developez\Front\Cart\Domain\Cart;
 use Developez\Front\Cart\Domain\CartRepository;
 
-class CartSessionFinder
+final class CartSessionFinder
 {
     private $repository;
     private $creator;

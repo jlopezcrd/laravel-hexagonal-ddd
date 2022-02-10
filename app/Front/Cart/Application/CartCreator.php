@@ -9,7 +9,7 @@ use Developez\Front\Cart\Domain\CartRepository;
 use Developez\Shared\Domain\OrderId;
 use Developez\Shared\Domain\OrderIdGenerator;
 
-class CartCreator
+final class CartCreator
 {
     private $repository;
     private $orderIdGenerator;
