@@ -19,7 +19,11 @@ class ProductGallerySearcher
 
     public function __invoke(array $filter, array $query): Collection
     {
-        if (count($query) > 0) {
+        return $this->repository->search(
+            new Query($filter, $query)
+        );
+
+        /*if (count($query) > 0) {
             return $this->repository->search(
                 //'on_gallery' => 1
                 new Query([], $query)
@@ -35,6 +39,6 @@ class ProductGallerySearcher
 
         return $this->repository->search(
             new Query(['on_gallery' => 1])
-        );
+        );*/
     }
 }

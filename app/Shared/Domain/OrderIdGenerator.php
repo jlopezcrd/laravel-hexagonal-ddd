@@ -5,5 +5,5 @@ namespace Developez\Shared\Domain;
 
 interface OrderIdGenerator
 {
-    public function generate(): int;
+    public function generate(): string;
 }

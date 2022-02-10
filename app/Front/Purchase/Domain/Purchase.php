@@ -28,11 +28,19 @@ class Purchase implements Serializable
         // TODO: Implement toJson() method.
     }
 
-    public function toArray(): array
+    public function toDB(): array
     {
         return [
             'orderId' => $this->orderId->value(),
             'cart'    => json_encode($this->cart->toArray(), JSON_THROW_ON_ERROR)
+        ];
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'orderId' => $this->orderId->value(),
+            'cart'    => $this->cart->toArray()
         ];
     }
 

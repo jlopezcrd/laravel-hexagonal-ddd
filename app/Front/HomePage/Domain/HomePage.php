@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Developez\Front\AboutUs\Domain;
+namespace Developez\Front\HomePage\Domain;
 
 use Developez\Front\Shared\Domain\Page;
 
-final class AboutUs implements Page
+final class HomePage implements Page
 {
-    public const PAGE = 'about_us';
+    public const PAGE = 'home_page';
 
     protected $type;
     protected $title;

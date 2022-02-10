@@ -13,7 +13,7 @@ class EloquentPurchaseRepository implements PurchaseRepository
 {
     public function savePurchase(Purchase $purchase): void
     {
-        DB::table('purchases')->insert($purchase->toArray());
+        DB::table('purchases')->insert($purchase->toDB());
     }
 
     public function findAll(): Collection

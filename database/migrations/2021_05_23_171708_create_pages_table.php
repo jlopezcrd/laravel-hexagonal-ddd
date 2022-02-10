@@ -1,11 +1,22 @@
 <?php
 
+use Developez\Front\AboutUs\Domain\AboutUs;
+use Developez\Front\AboutUs\Domain\AboutUsRepository;
+use Developez\Front\HomePage\Domain\HomePage;
+use Developez\Front\HomePage\Domain\HomePageRepository;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePagesTable extends Migration
 {
+    protected $repository;
+
+    public function __construct()
+    {
+        $this->repository = resolve(AboutUsRepository::class);
+    }
+
     /**
      * Run the migrations.
      *
@@ -20,6 +31,20 @@ class CreatePagesTable extends Migration
             $table->json('body');
             $table->timestamps();
         });
+
+        (resolve(HomePageRepository::class))->createAboutPage(
+            new HomePage(HomePage::PAGE, 'Home Page', (object) [
+                'head' => "<h1>Hi Home page!</h1>",
+                'body' => "<p>Home Body</p>",
+            ])
+        );
+
+        $this->repository->createAboutPage(
+            new AboutUs(AboutUs::PAGE, 'About Us', (object) [
+                'head' => "<h1>Hi About us!</h1>",
+                'body' => "<p>About body</p>",
+            ])
+        );
     }
 
     /**

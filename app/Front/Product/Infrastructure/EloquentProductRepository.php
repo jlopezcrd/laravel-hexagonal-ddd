@@ -42,6 +42,7 @@ class EloquentProductRepository implements ProductRepository
 
     public function search(Query $query): Collection
     {
+        //dd($query);
         $this->model = DB::table('products');
 
         if($query->hasAnd()) {
@@ -49,8 +50,12 @@ class EloquentProductRepository implements ProductRepository
         }
 
         if($query->hasOr()) {
-            $this->model = $this->model->where($query->valueOr());
+            $this->model = $this->model->where(static function($orm) use ($query) {
+                return $orm->orWhere($query->valueOr());
+            });
         }
+
+        //dd($this->model->toSql());
 
         return new Collection(array_map(static function($item) {
             return Product::fromArray((array) $item);

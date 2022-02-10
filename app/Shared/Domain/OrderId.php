@@ -7,12 +7,12 @@ class OrderId
 {
     private $value;
 
-    public function __construct(int $timestamp)
+    public function __construct(string $orderId)
     {
-        $this->value = $timestamp;
+        $this->value = $orderId;
     }
 
-    public function value(): int
+    public function value(): string
     {
         return $this->value;
     }

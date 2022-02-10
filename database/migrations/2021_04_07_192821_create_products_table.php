@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class CreateProductsTable extends Migration
 {
-    private $repository;
+    protected $repository;
 
     public function __construct()
     {
@@ -31,7 +31,7 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->string('image');
             $table->string('category');
-            $table->string('subcategory');
+            $table->string('subcategory')->default('test');
             $table->boolean('is_painting')->default(0);
             $table->boolean('on_gallery')->default(1);
             $table->boolean('on_shop')->default(0);
@@ -537,45 +537,3 @@ class CreateProductsTable extends Migration
         Schema::dropIfExists('products');
     }
 }
-
-/*'/gallery/img/cuadros/1.jpg',
-'/gallery/img/cuadros/2.jpg',
-'/gallery/img/cuadros/3.jpg',
-'/gallery/img/cuadros/4.jpg',
-'/gallery/img/cuadros/5.jpg',
-'/gallery/img/cuadros/6.jpg',
-'/gallery/img/cuadros/7.jpg',
-'/gallery/img/cuadros/8.jpg',
-'/gallery/img/cuadros/9.jpg',
-'/gallery/img/cuadros/10.jpg',
-'/gallery/img/cuadros/11.jpg',
-'/gallery/img/cuadros/12.jpg',
-'/gallery/img/cuadros/13.jpg',
-'/gallery/img/cuadros/14.jpg',
-'/gallery/img/cuadros/15.jpg',
-'/gallery/img/cuadros/16.jpg',
-'/gallery/img/cuadros/17.jpg',
-'/gallery/img/cuadros/18.jpg',
-'/gallery/img/cuadros/19.jpg',
-'/gallery/img/cuadros/20.jpg',
-'/gallery/img/cuadros/21.jpg',
-'/gallery/img/cuadros/22.jpg',
-'/gallery/img/cuadros/23.jpg',
-'/gallery/img/cuadros/24.jpg',
-'/gallery/img/cuadros/25.jpg',
-'/gallery/img/cuadros/26.jpg',
-'/gallery/img/cuadros/27.jpg',
-'/gallery/img/cuadros/28.jpg',
-'/gallery/img/cuadros/29.jpg',
-'/gallery/img/cuadros/30.jpg',
-'/gallery/img/cuadros/31.jpg',
-'/gallery/img/cuadros/32.jpg',
-'/gallery/img/cuadros/33.jpg',
-'/gallery/img/cuadros/34.jpg',
-'/gallery/img/cuadros/35.jpg',
-'/gallery/img/cuadros/36.jpg',
-'/gallery/img/cuadros/37.jpg',
-'/gallery/img/cuadros/38.jpg',
-'/gallery/img/cuadros/39.jpg',
-'/gallery/img/cuadros/40.jpg',
-'/gallery/img/cuadros/41.jpg',*/

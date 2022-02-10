@@ -12,7 +12,6 @@ class Query
     {
         $this->and = $filterAnd;
         $this->or  = $filterOr;
-        //dd($this);
     }
 
     public function hasAnd()
@@ -28,14 +27,13 @@ class Query
     public function valueAnd()
     {
         return $this->and;
-        $query = [];
+        /*$query = [];
 
         foreach($this->and as $key => $value) {
             $query[] = [$key, $value];
         }
 
-        return $query;
-        return $this->value;
+        return $query;*/
     }
 
     public function valueOr()
@@ -43,10 +41,15 @@ class Query
         $query = [];
 
         foreach($this->or as $key => $value) {
-            $query[] = [$key, 'LIKE', $value, 'or'];
+            $value = ltrim($value, '[');
+            $value = rtrim($value, ']');
+            $value = explode(",", $value);
+
+            foreach($value as $explode) {
+                $query[] = [$key, 'LIKE', $explode, 'or'];
+            }
         }
 
         return $query;
-        return $this->value;
     }
 }

@@ -4,8 +4,9 @@ declare(strict_types = 1);
 namespace Developez\Shared\Infrastructure;
 
 use Developez\Shared\Domain\OrderIdGenerator;
+use Illuminate\Support\Str;
 
-class TimeOrderIdGenerator implements OrderIdGenerator
+class UuIdGenerator implements OrderIdGenerator
 {
     public function __construct()
     {
@@ -13,6 +14,6 @@ class TimeOrderIdGenerator implements OrderIdGenerator
 
     public function generate(): string
     {
-        return (string) time();
+        return Str::uuid()->toString();
     }
 }
