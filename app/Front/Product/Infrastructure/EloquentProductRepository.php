@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Developez\Front\Product\Infrastructure;
@@ -8,7 +9,6 @@ use Developez\Front\Product\Domain\Product;
 use Developez\Front\Product\Domain\ProductRepository;
 use Developez\Shared\Domain\Collection;
 use Developez\Shared\Domain\Query;
-use Developez\Shared\Domain\QueryFinder;
 use Illuminate\Support\Facades\DB;
 
 class EloquentProductRepository implements ProductRepository
