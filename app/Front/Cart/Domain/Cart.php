@@ -10,8 +10,9 @@ use Developez\Shared\Domain\Serializable;
 
 final class Cart implements Serializable
 {
-    private $orderId;
-    private $items;
+    protected $orderId;
+    protected $items;
+    protected $total = 0.0;
 
     public function __construct(OrderId $orderId)
     {
@@ -33,6 +34,8 @@ final class Cart implements Serializable
             $cart->add(Product::fromArray($item));
         }
 
+        $cart->calculateTotal();
+
         return $cart;
     }
 
@@ -41,9 +44,21 @@ final class Cart implements Serializable
         $this->items[] = $product;
     }
 
+    public function calculateTotal(): void
+    {
+        array_map(function (Product $item) {
+            return $this->total += $item->price();
+        }, $this->items);
+    }
+
     public function orderId(): OrderId
     {
         return $this->orderId;
+    }
+
+    public function total(): float
+    {
+        return $this->total;
     }
 
     public function toJson(): string
@@ -55,6 +70,7 @@ final class Cart implements Serializable
     {
         return [
             'orderId' => $this->orderId->value(),
+            'total' => $this->total,
             'items' => array_map(static function ($item) {
                 return $item->toArray();
             }, $this->items)

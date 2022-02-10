@@ -16,7 +16,7 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->integer('orderId');
-            $table->string('cart');
+            $table->json('cart');
             $table->timestamps();
         });
     }

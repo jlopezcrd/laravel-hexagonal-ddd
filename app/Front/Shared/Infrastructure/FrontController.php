@@ -46,7 +46,8 @@ final class FrontController
     public function gallery(Request $request, ProductGallerySearcher $searcher): View
     {
         //dd($searcher([], ['category' => ['MURALES']]));
-        dd($searcher(['is_painting' => false, 'on_gallery' => true], $request->query()));
+        //dd($searcher(['is_painting' => false, 'on_gallery' => true], $request->query()));
+        dd($searcher(['on_gallery' => true], $request->query()));
     }
 
     public function gallery_category(Request $request, ProductGallerySearcher $searcher, string $category): View

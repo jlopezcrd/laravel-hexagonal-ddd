@@ -5,59 +5,39 @@ declare(strict_types = 1);
 namespace Developez\Front\Product\Domain;
 
 use Developez\Shared\Domain\Serializable;
-use Illuminate\Support\Str;
 
 final class Product implements Serializable
 {
     protected $uuid;
     protected $slug;
     protected $name;
-    protected $size;
-    protected $description;
     protected $image;
     protected $category;
+    protected $is_painting;
     protected $on_gallery;
     protected $on_shop;
+    protected $price;
 
     public function __construct(
         string $uuid,
         string $slug,
         string $name,
-        string $size,
-        string $description,
         string $image,
         string $category,
+        bool $is_painting = true,
         bool $on_gallery = true,
-        bool $on_shop = true
+        bool $on_shop = true,
+        float $price = 0.0
     ) {
         $this->uuid = $uuid;
         $this->slug = $slug;
         $this->name = strtoupper($name);
-        $this->size = $size;
-        $this->description = $description;
         $this->image = $image;
         $this->category = strtoupper($category);
+        $this->is_painting = $is_painting;
         $this->on_gallery = $on_gallery;
         $this->on_shop = $on_shop;
-    }
-
-    public static function fake(string $uuid = null): Product
-    {
-        if (!$uuid) {
-            $uuid = Str::uuid()->toString(); //TODO UUID DOMAIN GENERATOR
-        }
-
-        return new self(
-            $uuid,
-            'test1',
-            'TITULO AQUI',
-            '100x100',
-            'SIN DESCRIPCION',
-            'image.jpg',
-            'cuadros',
-            $on_gallery = true,
-            $on_shop = true
-        );
+        $this->price = $price;
     }
 
     public static function fromJson(string $serialized): Product
@@ -72,12 +52,12 @@ final class Product implements Serializable
             $data['uuid'],
             $data['slug'],
             $data['name'],
-            $data['size'],
-            $data['description'],
             $data['image'],
             $data['category'],
+            (bool)$data['is_painting'],
             (bool)$data['on_gallery'],
-            (bool)$data['on_shop']
+            (bool)$data['on_shop'],
+            (float)$data['price']
         );
     }
 
@@ -106,24 +86,14 @@ final class Product implements Serializable
         return $this->name;
     }
 
-    public function size(): string
-    {
-        return $this->size;
-    }
-
-    public function description(): string
-    {
-        return $this->description;
-    }
-
     public function image(): string
     {
         return $this->image;
     }
 
-    public function thumbnail(): string
+    public function is_painting(): bool
     {
-        return str_replace('/img/', '/thumbs/', $this->image);
+        return $this->is_painting;
     }
 
     public function on_gallery(): bool
@@ -138,7 +108,7 @@ final class Product implements Serializable
 
     public function price(): float
     {
-        return 0.0;
+        return $this->price;
     }
 
     public function toJson(): string
@@ -152,12 +122,12 @@ final class Product implements Serializable
             'uuid' => $this->uuid,
             'slug' => $this->slug,
             'name' => $this->name,
-            'size' => $this->size,
-            'description' => $this->description,
             'image' => $this->image,
             'category' => $this->category,
+            'is_painting' => $this->is_painting,
             'on_gallery' => $this->on_gallery,
             'on_shop' => $this->on_shop,
+            'price' => $this->price
         ];
     }
 }

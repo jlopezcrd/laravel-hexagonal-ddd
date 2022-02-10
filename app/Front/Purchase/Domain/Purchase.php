@@ -40,6 +40,11 @@ final class Purchase implements Serializable
         return $this->orderId;
     }
 
+    public function total(): float
+    {
+        return $this->cart->total();
+    }
+
     public function toJson(): string
     {
         // TODO: Implement toJson() method.

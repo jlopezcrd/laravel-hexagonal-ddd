@@ -27,7 +27,12 @@ final class CartUpdater
         }
 
         $cart = $this->finder->__invoke();
-        $cart->add($product);
+
+        for ($i = 0; $i < $quantity; $i++) {
+            $cart->add($product);
+        }
+
+        $cart->calculateTotal();
 
         return $this->repository->updateCart($cart);
     }
