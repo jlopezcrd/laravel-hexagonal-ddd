@@ -23,7 +23,7 @@ final class PurchaseCreator
 
     public function __invoke(Cart $cart): Purchase
     {
-        if ($cart->total() === 0.0) {
+        if ($cart->total() <= 0 || $cart->total() === 0.0) {
             throw new PurchaseEmptyException();
         }
 

@@ -92,6 +92,17 @@ class CreateProductsTable extends Migration
                 0,
                 100.0
             ),
+            new Product(
+                Str::uuid()->toString(),
+                Str::slug('Test'),
+                'TEST',
+                '/gallery/img/test.jpg',
+                'TEST_CURRENCY',
+                1,
+                1,
+                1,
+                -1
+            ),
         ];
 
         foreach($products as $product) {

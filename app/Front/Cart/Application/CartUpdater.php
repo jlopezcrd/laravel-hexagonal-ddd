@@ -27,6 +27,10 @@ final class CartUpdater
             throw new CartProductNotAvailable();
         }
 
+        if ($product->price() <= 0) {
+            throw new CartProductNotAvailable();
+        }
+
         if ($quantity < 1 || $quantity > 10) {
             throw new CartQuantityInvalid();
         }
